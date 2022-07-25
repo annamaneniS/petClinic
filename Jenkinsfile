@@ -5,7 +5,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Build PetClinic'
-                sh "mvn clean install"
+                withMaven(maven : 'apache-maven-3.6.1') {
+                      sh 'mvn clean install'
+                }
             }
         }
 
