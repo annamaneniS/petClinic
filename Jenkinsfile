@@ -1,13 +1,14 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'Maven 3.8.6'
+        jdk 'jdk8'
+    }
     stages {
         stage('Build') {
             steps {
                 echo 'Build PetClinic'
-                withMaven(maven : 'apache-maven-3.8.6') {
-                      bat 'mvn clean install'
-                }
+                sh 'mvn compile'
             }
         }
 
