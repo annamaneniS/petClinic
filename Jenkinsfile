@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Build PetClinic'
-                sh 'mvn compile'
+                sh 'mvn clean install'
             }
         }
 
