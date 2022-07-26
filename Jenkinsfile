@@ -4,6 +4,7 @@ pipeline {
     stage('Build') {
        steps {
          echo "Build started"
+         sh 'mvn clean compile'
        }
     }
     stage('Test') {
@@ -15,6 +16,13 @@ pipeline {
         steps {
             echo "Deployment started"
         }
+    }
+
+    post{
+        always{
+            mail to : mythoughtsntalks@gmail.com
+        }
+
     }
   }
 }
