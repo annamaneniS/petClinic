@@ -19,12 +19,5 @@ pipeline {
             echo "Deployment started"
         }
     }
-
-    post{
-        always{
-            mail to : mythoughtsntalks@gmail.com
-        }
-
-    }
   }
 }
