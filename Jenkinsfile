@@ -13,7 +13,7 @@ pipeline {
     stage('Build') {
        steps {
          echo "Build started"
-         sh 'mvn clean compile'
+         bat 'mvn clean compile'
        }
     }
     stage('Test') {
