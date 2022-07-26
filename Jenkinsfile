@@ -16,6 +16,7 @@ pipeline {
     stage('Deploy') {
         steps {
             echo "Deployment started"
+            bat './mvnw spring-boot:build-image'
         }
     }
   }
