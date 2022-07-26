@@ -1,24 +1,20 @@
 pipeline {
   agent any
-  tools {
-    maven 'Maven 3.3.9'
-    jdk 'jdk8'
-  }
   stages {
-
-    stage('Compile') {
+    stage('Build') {
        steps {
-         sh 'mvn compile' //only compilation of the code
+         echo "Build started"
        }
     }
     stage('Test') {
       steps {
-        sh '''
-        mvn clean install
-        ls
-        pwd
-        '''
+         echo "Test started"
       }
+    }
+    stage('Deploy') {
+        steps {
+            echo "Deployment started"
+        }
     }
   }
 }
