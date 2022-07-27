@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-     imagename = " annamanenis/petclinic"
+     imagename = "annamanenis/petclinic"
      registryCredential = 'dockerhub_annamaneni'
      dockerImage = ''
       //docker tag annamaneni/petclinic  annamaneni.jfrog.io/petclinic-docker/annamaneni/petclinic:latest
