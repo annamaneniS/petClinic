@@ -24,7 +24,7 @@ pipeline {
          echo "Junit test execution done"
       }
     }
-/* Docker hub build and deploy
+// Docker hub build and deploy
 stage('Building image') {
         steps{
             script {
@@ -47,9 +47,9 @@ stage('Building image') {
             sh "docker rmi $imagename:$BUILD_NUMBER"
             sh "docker rmi $imagename:latest"
         }
-    } */
+    }
 
-      stage('Building Image') {
+     /*  stage('Building Image') {
           steps{
             script {
               dockerImage = docker.build registry + ":latest"
@@ -69,6 +69,6 @@ stage('Building image') {
           steps{
             sh "docker rmi $registry:latest"
           }
-        }
+        } */
   }
 }
