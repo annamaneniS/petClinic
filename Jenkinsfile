@@ -11,6 +11,7 @@ pipeline {
       steps {
          echo "Test started"
          bat 'mvn clean install'
+         echo "Junit test execution done"
       }
     }
     stage('Deploy') {
