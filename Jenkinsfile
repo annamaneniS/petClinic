@@ -1,10 +1,15 @@
 pipeline {
   agent any
-   environment {
+   /* environment {
       registry = "https://annamaneni.jfrog.io/"
-      registryCredential = 'AKCp8mZn5aEtjS2wMUGFzLY5FZKHcQoGo7eRLWeyCM3uMee16w67TNQJAqECE2jaQn3m9nWX4'
+      registryCredential = 'dockerhub_annamaneni'
       dockerImage = 'petclinic'
-    }
+    } */
+   environment {
+     imagename = "annamaneni/petclinic"
+     registryCredential = 'dockerhub_annamaneni'
+     dockerImage = ''
+  }
   stages {
     stage('Build') {
        steps {
@@ -19,7 +24,31 @@ pipeline {
          echo "Junit test execution done"
       }
     }
-     stage('Building Image') {
+    stage('Building image') {
+    steps{
+    script {
+    dockerImage = docker.build imagename
+    }
+    }
+    }
+    stage('Deploy Image') {
+    steps{
+    script {
+    docker.withRegistry( '', registryCredential ) {
+    dockerImage.push("$BUILD_NUMBER")
+    dockerImage.push('latest')
+    }
+    }
+    }
+    }
+    stage('Remove Unused docker image') {
+    steps{
+    sh "docker rmi $imagename:$BUILD_NUMBER"
+    sh "docker rmi $imagename:latest"
+    }
+    }
+
+    /*  stage('Building Image') {
           steps{
             script {
               dockerImage = docker.build registry + ":latest"
@@ -39,6 +68,6 @@ pipeline {
           steps{
             sh "docker rmi $registry:latest"
           }
-        }
+        } */
   }
 }
