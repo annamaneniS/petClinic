@@ -1,16 +1,15 @@
 pipeline {
   agent any
-   /* environment {
+    environment {
       registry = "https://annamaneni.jfrog.io/"
-      registryCredential = 'dockerhub_annamaneni'
-      dockerImage = 'petclinic'
-    } */
-   environment {
+      registryCredential = 'annamaneni_jfrog'
+      dockerImage = ''
+    }
+  /*  environment {
      imagename = "annamanenis/petclinic"
      registryCredential = 'dockerhub_annamaneni'
      dockerImage = ''
-    // registry = "https://annamaneni.jfrog.io/annamaneni/petclinic"
-  }
+  } */
   stages {
     stage('Build') {
        steps {
@@ -25,31 +24,31 @@ pipeline {
          echo "Junit test execution done"
       }
     }
-    stage('Building image') {
-    steps{
-    script {
-    dockerImage = docker.build imagename
-    }
-    }
+/*     stage('Building image') {
+        steps{
+            script {
+                dockerImage = docker.build imagename
+            }
+        }
     }
     stage('Deploy Image') {
-    steps{
-    script {
-    docker.withRegistry( '', registryCredential ) {
-    dockerImage.push("$BUILD_NUMBER")
-    dockerImage.push('latest')
-    }
-    }
-    }
+        steps{
+            script {
+                docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push("$BUILD_NUMBER")
+                    dockerImage.push('latest')
+                }
+            }
+        }
     }
     stage('Remove Unused docker image') {
-    steps{
-    sh "docker rmi $imagename:$BUILD_NUMBER"
-    sh "docker rmi $imagename:latest"
-    }
-    }
+        steps{
+            sh "docker rmi $imagename:$BUILD_NUMBER"
+            sh "docker rmi $imagename:latest"
+        }
+    } */
 
-    /*  stage('Building Image') {
+      stage('Building Image') {
           steps{
             script {
               dockerImage = docker.build registry + ":latest"
@@ -69,6 +68,6 @@ pipeline {
           steps{
             sh "docker rmi $registry:latest"
           }
-        } */
+        }
   }
 }
