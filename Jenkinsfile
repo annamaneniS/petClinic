@@ -6,9 +6,10 @@ pipeline {
       dockerImage = 'petclinic'
     } */
    environment {
-     imagename = "annamaneni/petclinic"
+     imagename = "https://annamaneni.jfrog.io/annamaneni/petclinic"
      registryCredential = 'dockerhub_annamaneni'
      dockerImage = ''
+    // registry = "https://annamaneni.jfrog.io/annamaneni/petclinic"
   }
   stages {
     stage('Build') {
