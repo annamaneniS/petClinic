@@ -22,11 +22,11 @@ pipeline {
      stage('Building Image') {
           steps{
             script {
-              dockerImage = docker.build registry + ":latest"
+              dockerImage = docker build registry + ":latest"
             }
           }
         }
-        stage('Deploy Image') {
+       /*  stage('Deploy Image') {
           steps{
              script {
                 docker.withRegistry( '', registryCredential ) {
@@ -39,6 +39,6 @@ pipeline {
           steps{
             sh "docker rmi $registry:latest"
           }
-        }
+        } */
   }
 }
