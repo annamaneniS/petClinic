@@ -3,7 +3,7 @@ pipeline {
    environment {
       registry = "https://annamaneni.jfrog.io/"
       registryCredential = 'AKCp8mZn5aEtjS2wMUGFzLY5FZKHcQoGo7eRLWeyCM3uMee16w67TNQJAqECE2jaQn3m9nWX4'
-      dockerImage = 'petclinic'
+      dockerImage = ''
     }
   stages {
     stage('Build') {
