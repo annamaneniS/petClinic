@@ -1,17 +1,11 @@
 pipeline {
   agent any
-    environment {
-      registry = "https://annamaneni.jfrog.io/"
-      registryCredential = 'annamaneni_jfrog'
-      dockerImage = ''
-      //docker tag <IMAGE_ID> annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
-      //docker push annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
-      //docker pull annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
-    }
   environment {
      imagename = " annamanenis/petclinic"
      registryCredential = 'dockerhub_annamaneni'
      dockerImage = ''
+      //docker tag annamaneni/petclinic  annamaneni.jfrog.io/petclinic-docker/annamaneni/petclinic:latest
+      //docker push annamaneni.jfrog.io/petclinic-docker/annamanenis/petclinic:latest
   }
   stages {
     stage('Build') {
@@ -28,7 +22,7 @@ pipeline {
       }
     }
 // Docker hub build and deploy
-/* stage('Building image') {
+ stage('Building image') {
         steps{
             script {
                 dockerImage = docker.build imagename
@@ -51,28 +45,7 @@ pipeline {
             sh "docker rmi $imagename:$BUILD_NUMBER"
             sh "docker rmi $imagename:latest"
         }
-    } */
+    }
 
-     stage('Building Image') {
-          steps{
-            script {
-              dockerImage = docker.build registry + ":latest"
-            }
-          }
-        }
-         stage('Deploy Image') {
-          steps{
-             script {
-                docker.withRegistry( '', registryCredential ) {
-                dockerImage.push()
-              }
-            }
-          }
-        }
-        stage('Remove Unused docker image') {
-          steps{
-            sh "docker rmi $registry:latest"
-          }
-        }
   }
 }
