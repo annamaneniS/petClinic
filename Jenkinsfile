@@ -6,9 +6,13 @@ pipeline {
       dockerImage = ''
     } */
   environment {
-     imagename = "annamanenis/petclinic"
-     registryCredential = 'dockerhub_annamaneni'
+     imagename = " annamaneni.jfrog.io/petclinic-docker/"
+   //  registryCredential = 'dockerhub_annamaneni'
+     registryCredential = 'annamaneni_jfrog'
      dockerImage = ''
+     //docker tag <IMAGE_ID> annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
+     //docker push annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
+     //docker pull annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
   }
   stages {
     stage('Build') {
@@ -38,6 +42,7 @@ stage('Building image') {
                 docker.withRegistry( '', registryCredential ) {
                     dockerImage.push("$BUILD_NUMBER")
                     dockerImage.push('latest')
+
                 }
             }
         }
