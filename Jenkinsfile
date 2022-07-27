@@ -1,5 +1,10 @@
 pipeline {
   agent any
+   environment {
+      registry = "https://annamaneni.jfrog.io/"
+      registryCredential = 'AKCp8mZn5aEtjS2wMUGFzLY5FZKHcQoGo7eRLWeyCM3uMee16w67TNQJAqECE2jaQn3m9nWX4'
+      dockerImage = ''
+    }
   stages {
     stage('Build') {
        steps {
@@ -14,11 +19,26 @@ pipeline {
          echo "Junit test execution done"
       }
     }
-    stage('Deploy') {
-        steps {
-            echo "Deployment started"
-            bat './mvnw spring-boot:build-image'
+     stage('Building Image') {
+          steps{
+            script {
+              dockerImage = docker.build registry + ":latest"
+            }
+          }
         }
-    }
+        stage('Deploy Image') {
+          steps{
+             script {
+                docker.withRegistry( '', registryCredential ) {
+                dockerImage.push()
+              }
+            }
+          }
+        }
+        stage('Remove Unused docker image') {
+          steps{
+            sh "docker rmi $registry:latest"
+          }
+        }
   }
 }
