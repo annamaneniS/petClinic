@@ -1,15 +1,15 @@
 pipeline {
   agent any
-    environment {
+  /*   environment {
       registry = "https://annamaneni.jfrog.io/"
       registryCredential = 'annamaneni_jfrog'
       dockerImage = ''
-    }
-  /*  environment {
+    } */
+  environment {
      imagename = "annamanenis/petclinic"
      registryCredential = 'dockerhub_annamaneni'
      dockerImage = ''
-  } */
+  }
   stages {
     stage('Build') {
        steps {
@@ -24,7 +24,8 @@ pipeline {
          echo "Junit test execution done"
       }
     }
-/*     stage('Building image') {
+/* Docker hub build and deploy
+stage('Building image') {
         steps{
             script {
                 dockerImage = docker.build imagename
