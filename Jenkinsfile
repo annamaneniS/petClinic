@@ -1,18 +1,17 @@
 pipeline {
   agent any
-  /*   environment {
+    environment {
       registry = "https://annamaneni.jfrog.io/"
       registryCredential = 'annamaneni_jfrog'
       dockerImage = ''
-    } */
+      //docker tag <IMAGE_ID> annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
+      //docker push annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
+      //docker pull annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
+    }
   environment {
-     imagename = " annamaneni.jfrog.io/petclinic-docker/"
-   //  registryCredential = 'dockerhub_annamaneni'
-     registryCredential = 'annamaneni_jfrog'
+     imagename = " annamanenis/petclinic"
+     registryCredential = 'dockerhub_annamaneni'
      dockerImage = ''
-     //docker tag <IMAGE_ID> annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
-     //docker push annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
-     //docker pull annamaneni.jfrog.io/petclinic-docker/<DOCKER_IMAGE>:<DOCKER_TAG>
   }
   stages {
     stage('Build') {
@@ -29,7 +28,7 @@ pipeline {
       }
     }
 // Docker hub build and deploy
-stage('Building image') {
+/* stage('Building image') {
         steps{
             script {
                 dockerImage = docker.build imagename
@@ -52,9 +51,9 @@ stage('Building image') {
             sh "docker rmi $imagename:$BUILD_NUMBER"
             sh "docker rmi $imagename:latest"
         }
-    }
+    } */
 
-     /*  stage('Building Image') {
+     stage('Building Image') {
           steps{
             script {
               dockerImage = docker.build registry + ":latest"
@@ -74,6 +73,6 @@ stage('Building image') {
           steps{
             sh "docker rmi $registry:latest"
           }
-        } */
+        }
   }
 }
