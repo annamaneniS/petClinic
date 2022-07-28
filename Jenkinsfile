@@ -45,7 +45,7 @@ pipeline {
                     // Host:
                     // On OSX: "tcp://127.0.0.1:1234"
                     // On Linux can be omitted or null
-                    host: HOST_NAME,
+                    host: "tcp://localhost:2375",
                     targetRepo: 'petclinic-docker',
                     // Attach custom properties to the published artifacts:
                     properties: 'project-name=petclinic;status=stable'
