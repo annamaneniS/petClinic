@@ -22,24 +22,29 @@ pipeline {
       }
     }
 // Docker hub build and deploy
- stage('Building image') {
-        steps{
-            script {
-                dockerImage = docker.build imagename
-            }
-        }
-    }
-    stage('Deploy Image') {
-        steps{
-            script {
-                docker.withRegistry( '', registryCredential ) {
-                    dockerImage.push("$BUILD_NUMBER")
-                    dockerImage.push('latest')
+   stage('Build image') { // build and tag docker image
+         steps {
+             echo 'Starting to build docker image'
 
-                }
-            }
-        }
-    }
+             script {
+                 def dockerfile = 'Dockerfile'
+                 def customImage = docker.build('annamaneni.jfrog.io/petclinic-docker/annamaneni/petclinic:latest ', "-f ${dockerfile} .")
+
+             }
+         }
+     }
+
+     stage ('Push image to Artifactory') { // take that image and push to artifactory
+         steps {
+             rtDockerPush(
+                 serverId: "jFrog-ar1",
+                 image: "annamaneni.jfrog.io/petclinic-docker/annamaneni/petclinic:latest",
+                 host: 'tcp://localhost:2375',
+                 targetRepo: 'petclinic-docker-remote', // where to copy to (from docker-virtual)
+                 properties: 'project-name=docker1;status=stable'
+             )
+         }
+     }
     stage('Remove Unused docker image') {
         steps{
             sh "docker rmi $imagename:$BUILD_NUMBER"
