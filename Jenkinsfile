@@ -32,7 +32,7 @@ pipeline {
         stage ('Build docker image') {
             steps {
                 script {
-                    docker.build("https://annamaneni.jfrog.io/petclinic-docker" + '/spring-petclinic:latest', '')
+                    docker.build("" + 'spring-petclinic:latest', '')
                 }
             }
         }
