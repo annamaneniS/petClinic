@@ -41,13 +41,9 @@ pipeline {
             steps {
                 rtDockerPush(
                     serverId: "annamaneni",
-                    image: "https://annamaneni.jfrog.io" + '/spring-petclinic:latest',
-                    // Host:
-                    // On OSX: "tcp://127.0.0.1:1234"
-                    // On Linux can be omitted or null
+                    image: "https://annamaneni.jfrog.io/petclinic-docker" + '/spring-petclinic:latest',
                     host: "tcp://localhost:2375",
                     targetRepo: 'petclinic-docker',
-                    // Attach custom properties to the published artifacts:
                     properties: 'project-name=petclinic;status=stable'
                 )
             }
