@@ -43,7 +43,7 @@ pipeline {
                     serverId: "annamaneni",
                     image: "https://annamaneni.jfrog.io/petclinic-docker" + '/spring-petclinic:latest',
                     host: "tcp://localhost:2375",
-                    targetRepo: 'petclinic-docker',
+                    targetRepo: 'petclinic-docker-local',
                     properties: 'project-name=petclinic;status=stable'
                 )
             }
