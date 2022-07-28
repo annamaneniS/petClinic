@@ -1,11 +1,11 @@
 pipeline {
   agent any
   environment {
-     imagename = "annamanenis/petclinic"
+     imagename = "spring-petclinic"
      registryCredential = 'dockerhub_annamaneni'
      dockerImage = ''
-      //docker tag annamaneni/petclinic  annamaneni.jfrog.io/petclinic-docker/annamaneni/petclinic:latest
-      //docker push annamaneni.jfrog.io/petclinic-docker/annamanenis/petclinic:latest
+     //docker tag spring-petclinic:2.7.0-SNAPSHOT  annamaneni.jfrog.io/petclinic-docker/spring-petclinic:2.7.0-SNAPSHOT
+     //docker push annamaneni.jfrog.io/petclinic-docker/spring-petclinic:2.7.0-SNAPSHOT
   }
   stages {
     stage('Build') {
