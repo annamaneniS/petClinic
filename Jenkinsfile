@@ -1,52 +1,52 @@
 pipeline {
-  agent any
-  environment {
-     imagename = "spring-petclinic"
-     registryCredential = 'annamaneni_jfrog'
-     dockerImage = ''
-     //docker tag spring-petclinic:2.7.0-SNAPSHOT  annamaneni.jfrog.io/petclinic-docker/spring-petclinic:2.7.0-SNAPSHOT
-     //docker push annamaneni.jfrog.io/petclinic-docker/spring-petclinic:2.7.0-SNAPSHOT
-  }
-  stages {
-    stage('Build') {
-       steps {
-         echo "Build started"
-         bat 'mvn clean compile'
-       }
-    }
-    stage('Test') {
-      steps {
-         echo "Test started"
-         bat 'mvn clean install'
-         echo "Junit test execution done"
-      }
-    }
-// Docker hub build and deploy
- stage('Building image') {
-        steps{
-            script {
-                dockerImage = docker.build imagename
+    agent any
+    stages {
+        stage ('Clone') {
+            steps {
+                git branch: 'dockerize_jfrog', url: "https://github.com/annamaneniS/petClinic.git"
             }
         }
-    }
-    stage('Deploy Image') {
-        steps{
-            script {
-                docker.withRegistry( '', registryCredential ) {
-                    dockerImage.push("$BUILD_NUMBER")
-                    dockerImage.push('latest')
 
+        stage ('Artifactory configuration') {
+            steps {
+                rtServer (
+                    id: "annamaneni",
+                    url: "https://annamaneni.jfrog.io/",
+                    credentialsId: 'annamaneni_jfrog'
+                )
+            }
+        }
+
+        stage ('Build docker image') {
+            steps {
+                script {
+                    docker.build("https://annamaneni.jfrog.io/petclinic-docker" + '/spring-petclinic:latest', '')
                 }
             }
         }
-    }
-    stage('Remove Unused docker image') {
-        steps{
-            sh "docker rmi $imagename:$BUILD_NUMBER"
-            sh "docker rmi $imagename:latest"
+
+        stage ('Push image to Artifactory') {
+            steps {
+                rtDockerPush(
+                    serverId: "annamaneni",
+                    image: "https://annamaneni.jfrog.io" + '/spring-petclinic:latest',
+                    // Host:
+                    // On OSX: "tcp://127.0.0.1:1234"
+                    // On Linux can be omitted or null
+                    host: HOST_NAME,
+                    targetRepo: 'petclinic-docker',
+                    // Attach custom properties to the published artifacts:
+                    properties: 'project-name=petclinic;status=stable'
+                )
+            }
+        }
+
+        stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "annamaneni"
+                )
+            }
         }
     }
-
-  }
 }
-
