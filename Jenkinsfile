@@ -44,15 +44,6 @@ pipeline {
             }
         }
     }
-    stage('Jfrog Push') {
-        steps{
-            sh "docker rmi $imagename:$BUILD_NUMBER"
-            sh "docker rmi $imagename:latest"
-            /* sh "docker login -umythoughtsntalks@gmail.com annamaneni.jfrog.io"
-            sh "docker tag spring-petclinic:2.7.0-SNAPSHOT  annamaneni.jfrog.io/petclinic-docker/spring-petclinic:2.7.0-SNAPSHOT"
-            sh "docker push annamaneni.jfrog.io/petclinic-docker/spring-petclinic:2.7.0-SNAPSHOT" */
-        }
-    }
   }
 }
 
