@@ -135,9 +135,13 @@ Here is a list of them:
 | Bean Validation / Hibernate Validator: simplify Maven dependencies and backward compatibility |[HV-790](https://hibernate.atlassian.net/browse/HV-790) and [HV-792](https://hibernate.atlassian.net/browse/HV-792) |
 | Spring Data: provide more flexibility when working with JPQL queries | [DATAJPA-292](https://jira.springsource.org/browse/DATAJPA-292) |
 
+## Git repo for jenkins pipeline
+https://github.com/annamaneniS/petClinic.git 
+
 ## Jenkins Pipeline 
 Jenkins pipeline mainly focuses of compiling the code binaries, testing the same with jUnit test cases followed by building docker image and ends with jfrog artifactory push.
 All these pipeline stages are documented in the Jenkinsfile. 
+
 ![img_1.png](img_1.png)
 ## Dockerfile
 Dockerfile contains the layout of the docker image. Copies the versioned jar file into spring-petclinic.jar
