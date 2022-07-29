@@ -39,6 +39,10 @@ pipeline {
 
         stage ('Push image to Artifactory') {
             steps {
+                docker.withRegistry( '', registryCredential ) {
+                                    dockerImage.push("$BUILD_NUMBER")
+                                    dockerImage.push('latest')
+                }
                 rtDockerPush(
                     serverId: "annamaneni",
                     image: "spring-petclinic:latest",
