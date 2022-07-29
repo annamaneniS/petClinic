@@ -41,9 +41,9 @@ pipeline {
             steps {
                 rtDockerPush(
                     serverId: "annamaneni",
-                    image: "https://annamaneni.jfrog.io/petclinic-docker-remote" + "/spring-petclinic:latest",
+                    image: "spring-petclinic:latest",
                     host: "tcl://localhost:2375",
-                    targetRepo: "petclinic-docker-remote",
+                    targetRepo: "petclinic-docker",
                     properties: "project-name=petclinic;status=stable"
                 )
             }
