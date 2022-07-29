@@ -37,7 +37,7 @@ pipeline {
                     dockerImage.push('latest')
                 }*/
                 docker.withRegistry('https://annamaneni.jfrog.io', registryCredential) {
-                  def dockerImage = docker.build("docker-local/spring-petclinic:${BUILD_NUMBER}", './')
+                  def dockerImage = docker.build("petclinic-docker-local/spring-petclinic:${BUILD_NUMBER}", './')
                   dockerImage.push()
                   dockerImage.push('latest')
                 }
