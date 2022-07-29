@@ -42,8 +42,8 @@ pipeline {
                 rtDockerPush(
                     serverId: "annamaneni",
                     image: "spring-petclinic:latest",
-                    host: "tcp://localhost:2375"
-                    targetRepo: "petclinic-docker"
+                    host: "tcp://localhost:2375",
+                    targetRepo: "petclinic-docker",
                     properties: "project-name=petclinic;status=stable"
                 )
             }
