@@ -24,7 +24,7 @@ pipeline {
                 rtServer (
                     id: "annamaneni",
                     url: "https://annamaneni.jfrog.io",
-                    credentialsId: 'annamaneni_jfrog'
+                    credentialsId: 'dockerhub_annamaneni'
                 )
             }
         }
