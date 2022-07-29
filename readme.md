@@ -135,6 +135,28 @@ Here is a list of them:
 | Bean Validation / Hibernate Validator: simplify Maven dependencies and backward compatibility |[HV-790](https://hibernate.atlassian.net/browse/HV-790) and [HV-792](https://hibernate.atlassian.net/browse/HV-792) |
 | Spring Data: provide more flexibility when working with JPQL queries | [DATAJPA-292](https://jira.springsource.org/browse/DATAJPA-292) |
 
+## Jenkins Pipeline 
+Jenkins pipeline mainly focuses of compiling the code binaries, testing the same with jUnit test cases followed by building docker image and ends with jfrog artifactory push.
+All these pipeline stages are documented in the Jenkinsfile. 
+![img_1.png](img_1.png)
+## Dockerfile
+Dockerfile contains the layout of the docker image. Copies the versioned jar file into spring-petclinic.jar
+Dockerfile also contains the command to run the docker image.
+"java","-jar","/usr/bin/spring-petclinic.jar","--server.port=8181" in EntryPoint step.
+
+## Command to run the docker image
+java","-jar","/usr/bin/spring-petclinic.jar","--server.port=8181"
+Port can be configurable on docker client
+![img.png](img.png)
+
+## Tech stack consideration
+All the tech stack used here are free tier.
+1. Jenkins is installed using jenkins.war and is up and running on 8080 port.
+So, all jobs are executed on http://localhost:8080 for this PoC.
+However, this jenkins link can be shared if necessary.
+2. Docker Desktop Client is of latest version 4.10.1 as on 29th July.
+3. Maven, JAVA, Intellij, Git are used as for development practices.
+4. jfrog artifactory https://annamaneni.jfrog.io/ is of latest version
 
 # Contributing
 
