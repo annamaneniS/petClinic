@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
      registryCredential = 'annamaneni_jfrog'
-     dockerImage =  'petclinic-docker-local/spring-petclinic:latest'
+     dockerImage =  'petclinic-docker-local/petclinic:latest'
      artifactoryURL ='https://annamaneni.jfrog.io'
      //docker tag spring-petclinic:latest  annamaneni.jfrog.io/petclinic-docker/spring-petclinic:latest
      //docker push annamaneni.jfrog.io/petclinic-docker/spring-petclinic:latest
@@ -36,7 +36,7 @@ pipeline {
     }
     stage('Remove Unused docker image') {
          steps{
-             sh "docker rmi $artifactoryURL/petclinic-docker/spring-petclinic:latest"
+             sh "docker rmi $artifactoryURL/petclinic-docker/petclinic:latest"
          }
     }
   }
