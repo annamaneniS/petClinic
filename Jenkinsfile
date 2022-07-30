@@ -36,7 +36,7 @@ pipeline {
     }
     stage('Remove Unused docker image') {
          steps{
-             sh "docker rmi $artifactoryURL'/'$dockerImage"
+             sh "docker rmi $artifactoryURL/petclinic-docker/spring-petclinic:latest"
          }
     }
   }
