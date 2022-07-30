@@ -36,7 +36,7 @@ pipeline {
     }
     stage('Remove Unused docker image') {
          steps{
-             sh "docker rmi $artifactoryURL'/'$dockerImage:latest"
+             sh "docker rmi $artifactoryURL'/'$dockerImage"
          }
     }
   }
