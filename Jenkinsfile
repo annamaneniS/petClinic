@@ -37,10 +37,12 @@ pipeline {
     stage('Remove Unused docker image') {
               steps{
                  //sh "docker rmi $artifactoryURL:latest"
-                 (docker images) -like '*spring-petclinic*' | ForEach-Object {
+                 script {
+                 (docker images) -like '*petclinic*' | ForEach-Object {
                      $id = ($_ -split '\s+')[2]
                      docker rmi $id
                  }
+                }
               }
             }
   }
