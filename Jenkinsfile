@@ -2,8 +2,8 @@ pipeline {
   agent any
   environment {
      registryCredential = 'annamaneni_jfrog'
-     dockerImage =  'imageName'
-     artifactoryURL ='artifactory_name'
+     dockerImage =  'petclinic-docker-local/spring-petclinic:latest'
+     artifactoryURL ='https://annamaneni.jfrog.io'
      //docker tag spring-petclinic:latest  annamaneni.jfrog.io/petclinic-docker/spring-petclinic:latest
      //docker push annamaneni.jfrog.io/petclinic-docker/spring-petclinic:latest
   }
