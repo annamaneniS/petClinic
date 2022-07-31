@@ -27,7 +27,7 @@ pipeline {
          echo "Build and Deploy Image to jfrog artifactory"
             script {
                 docker.withRegistry(artifactoryURL, registryCredential) {
-                  def dockerImage = docker.build(dockerImage':${BUILD_NUMBER}', './')
+                  def dockerImage = docker.build(dockerImage":${BUILD_NUMBER}", './')
                   dockerImage.push()
                   dockerImage.push('latest')
                 }
