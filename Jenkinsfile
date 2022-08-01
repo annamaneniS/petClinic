@@ -2,7 +2,6 @@ pipeline {
   agent any
   environment {
      registryCredential = 'annamaneni_jfrog'
-     dockerImage =  'petclinic-docker-local/petclinic'
      artifactoryURL ='https://annamaneni.jfrog.io'
      //docker tag spring-petclinic:latest  annamaneni.jfrog.io/petclinic-docker/spring-petclinic:latest
      //docker push annamaneni.jfrog.io/petclinic-docker/spring-petclinic:latest
@@ -27,7 +26,7 @@ pipeline {
          echo "Build and Deploy Image to jfrog artifactory"
             script {
                 docker.withRegistry(artifactoryURL, registryCredential) {
-                  def dockerImage = docker.build(dockerImage":${BUILD_NUMBER}", './')
+                  def dockerImage = docker.build("petclinic-docker-local/petclinic:${BUILD_NUMBER}", './')
                   dockerImage.push()
                   dockerImage.push('latest')
                 }
